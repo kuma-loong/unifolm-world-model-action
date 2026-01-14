@@ -487,7 +487,8 @@ def run_inference(args: argparse.Namespace, gpu_num: int, gpu_no: int) -> None:
     noise_shape = [args.bs, channels, n_frames, h, w]
 
     # Start inference
-    for idx in range(0, len(df)):
+    # for idx in range(0, len(df)):
+    for idx in range(gpu_no, len(df), gpu_num):
         sample = df.iloc[idx]
 
         # Got initial frame path
@@ -798,6 +799,14 @@ def get_parser():
                         type=int,
                         default=8,
                         help="fps for the saving video")
+    parser.add_argument("--rank",
+                        type=int,
+                        default=0,
+                        help="rank for distributed inference")
+    parser.add_argument("--gpu_num",
+                        type=int,
+                        default=1,
+                        help="total number of gpus for distributed inference")
     return parser
 
 
@@ -808,5 +817,5 @@ if __name__ == '__main__':
     if seed < 0:
         seed = random.randint(0, 2**31)
     seed_everything(seed)
-    rank, gpu_num = 0, 1
-    run_inference(args, gpu_num, rank)
+    # rank, gpu_num = 0, 1
+    run_inference(args, args.gpu_num, args.rank)
