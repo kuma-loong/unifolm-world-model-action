@@ -128,3 +128,16 @@ Data/Pretrained
 Data/utils.py
 Experiment/checkpoint
 Experiment/log
+
+# models
+ckpts/
+
+# datasets
+unitree_g1_pack_camera/
+unitree_z1_dual_arm_stackbox_v2/
+unitree_z1_dual_arm_cleanup_pencils/
+unitree_z1_dual_arm_stackbox/
+unitree_z1_stackbox/
+
+# psnr
+psnr_score_for_challenge.py
